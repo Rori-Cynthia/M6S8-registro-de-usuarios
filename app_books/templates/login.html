@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-sm" style="width: 25rem;">
+        <h1 class="text-center mb-4">Login</h1>
+        
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label w-100">Username*</label>
+                {{ form.username|add_class:"w-100" }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.password.id_for_label }}" class="form-label w-100">Password*</label>
+                {{ form.password|add_class:"w-100" }}
+            </div>
+
+            {% if form.non_field_errors %}
+            <div class="text-danger text-center small">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+
+            <p class="text-center mt-3">
+                Si no tienes una cuenta, regístrate en <a href="{% url 'registro' %}" class="text-primary">para crear una cuenta.</a>
+            </p>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
